@@ -1,46 +1,16 @@
 # Relatório
 
-## 1. Definição do Problema
-Este projeto tem como objetivo implementar, em FPGA, um coprocessador capaz de classificar dígitos de 0 a 9 a partir de imagens em escala de cinza de tamanho 28×8. O sistema realiza a inferência utilizando uma rede neural do tipo Extreme Learning Machine (ELM).
+## 1. Introdução
+O objetivo deste marco foi projetar, implementar em Verilog e validar através de simulação o hardware especializado para inferência de rede neural Extreme Learning Machine (ELM).
 
-A implementação foi desenvolvida em Verilog, adotando uma arquitetura sequencial composta por um datapath e uma máquina de estados finitos (FSM) para controle. Os dados são representados em ponto fixo no formato Q4.12.
+O sistema foi projetado para operar em ponto fixo Q4.12 , processando imagens de entrada de 28x28 pixels  de 784 bytes e fornecendo a classificação de dígitos de 0 a 9.
 
-Neste marco, o foco está na construção do hardware e na validação do seu funcionamento por meio de simulações.
+## 2. Levantamento de Requisitos e Especificação
+Para o co-processador do Marco 1, foram levantados e implementados os seguintes requisitos:
+- Arquitetura: O co-processador deve ter uma arquitetura sequencial, controlada por uma FSM.
+- Datapath: Deve incluir unidades MAC (multiplica-acumula), ativação tanh aproximada via LUT e bloco Argmax final.
+- Representação Numérica: Todos os cálculos e parâmetros de pesos e bias devem utilizar o formato de ponto fixo Q4.12.
+- Armazenamento: Devem ser implementadas memórias (ROM/RAM) para a imagem de entrada (784 bytes) e para as matrizes de pesos e bias fornecidas.
+- Interface: O hardware deve expor um conjunto de registradores para controle e monitoramento pela CPU (HPS), incluindo CTRL para START/RESET, STATUS para BUSY, DONE, ERROR, IMG para envio da imagem, RESULT para leitura do dígito predito e CYCLES para medição de desempenho.
 
-## 2. Fundamentação Teórica
-
-### 2.1. Extreme Learning Machine
-A ELM é uma rede neural com apenas uma camada oculta. O processamento ocorre em etapas: inicialmente, calcula-se a saída da camada oculta a partir da entrada; em seguida, é feita a computação da camada de saída; por fim, seleciona-se o maior valor (argmax), que corresponde ao dígito previsto.
-
-### 2.2. Representação em Ponto Fixo (Q4.12)
-Os valores são representados com 16 bits no formato Q4.12, sendo 4 bits para a parte inteira e 12 bits para a parte fracionária. Essa abordagem é mais eficiente para implementação em FPGA do que o uso de ponto flutuante, pois consome menos recursos de hardware e permite maior desempenho.
-
-### 2.3. Arquitetura de Hardware
-O sistema foi dividido em duas partes principais: o datapath, responsável pelos cálculos, e a FSM, que controla a sequência das operações. Essa separação facilita o desenvolvimento do projeto e melhora a organização do código.
-
-## 3. Descrição da Solução
-
-### 3.1. Visão Geral da Arquitetura
-
-### 3.2. Diagrama de Blocos
-
-### 3.3. FSM de Controle
-
-### 3.4. Datapath
-
-### 3.5. Função de Ativação
-
-### 3.6. Argmax
-
-### 3.7. Memórias
-
-### 3.8. Banco de Registradores
-
-## 4. Metodologia de Testes
-
-
-## 5. Resulatdos
-
-## 6. Ambiente de Desenvolvimento
-
-## 8. Instalação e Configuração de Ambiente
+## 3. Descrição da Solução de Hardware
